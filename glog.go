@@ -10,6 +10,7 @@ import (
 	"github.com/fatih/color"
 	"io"
 	"log"
+	"os"
 )
 
 type glog struct {
@@ -19,6 +20,9 @@ type glog struct {
 var Gl glog
 
 func InitGlog(wt io.Writer) {
+	if wt == nil {
+		wt = os.Stdout
+	}
 	Gl = glog{log.New(wt, "", log.Llongfile)}
 }
 

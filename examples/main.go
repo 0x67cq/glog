@@ -7,6 +7,7 @@ import (
 
 func main() {
 	glog.InitGlog(os.Stdout)
+	glog.InitGlog(nil)
 	glog.Infof("this is info")
 	glog.Debugf("this is debug")
 	glog.Errorf("this is error")
