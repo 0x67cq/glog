@@ -1,4 +1,4 @@
-module glog
+module github.com/psychix/glog
 
 go 1.13
 
