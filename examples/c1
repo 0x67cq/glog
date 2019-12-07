@@ -1,0 +1,4 @@
+[32m/Users/guanchengqi/PsychixCode/golang/pkg/glog/glog.go:56: this is info
+[33m/Users/guanchengqi/PsychixCode/golang/pkg/glog/glog.go:46: this is debug
+[31m/Users/guanchengqi/PsychixCode/golang/pkg/glog/glog.go:36: this is error
+[35m/Users/guanchengqi/PsychixCode/golang/pkg/glog/glog.go:27: this is fata
