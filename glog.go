@@ -28,41 +28,41 @@ func InitGlog(wt io.Writer) {
 
 func (g *Glog) Fatalf(format string, v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "35"))
-	g.Printf(color.MagentaString(format, v...))
+	g.Output(3, color.MagentaString(format, v...))
 }
 func (g *Glog) Fatalln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "35"))
-	g.Print(color.MagentaString("", v...))
+	g.Output(3, color.MagentaString("", v...))
 
 }
 func (g *Glog) Errorf(format string, v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "31"))
-	g.Printf(color.RedString(format, v...))
+	g.Output(3, color.RedString(format, v...))
 
 }
 func (g *Glog) Errorln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "31"))
-	g.Print(color.RedString("", v...))
+	g.Output(3, color.RedString("", v...))
 
 }
 func (g *Glog) Debugf(format string, v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "33"))
-	g.Printf(color.YellowString(format, v...))
+	g.Output(3, color.YellowString(format, v...))
 
 }
 func (g *Glog) Debugln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "33"))
-	g.Print(color.YellowString("", v...))
+	g.Output(3, color.YellowString("", v...))
 
 }
 func (g *Glog) Infof(format string, v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "32"))
-	g.Printf(color.GreenString(format, v...))
+	g.Output(3, color.GreenString(format, v...))
 
 }
 func (g *Glog) Infoln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "32"))
-	g.Print(color.GreenString("", v...))
+	g.Output(3, color.GreenString("", v...))
 
 }
 
