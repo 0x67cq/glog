@@ -13,54 +13,54 @@ import (
 	"os"
 )
 
-type glog struct {
+type Glog struct {
 	*log.Logger
 }
 
-var Gl glog
+var Gl Glog
 
 func InitGlog(wt io.Writer) {
 	if wt == nil {
 		wt = os.Stdout
 	}
-	Gl = glog{log.New(wt, "", log.Llongfile)}
+	Gl = Glog{log.New(wt, "", log.Llongfile)}
 }
 
-func (g *glog) fatalf(format string, v ...interface{}) {
+func (g *Glog) fatalf(format string, v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "35"))
 	g.Printf(color.MagentaString(format, v...))
 }
-func (g *glog) fatalln(v ...interface{}) {
+func (g *Glog) fatalln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "35"))
 	g.Print(color.MagentaString("", v...))
 
 }
-func (g *glog) errorf(format string, v ...interface{}) {
+func (g *Glog) errorf(format string, v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "31"))
 	g.Printf(color.RedString(format, v...))
 
 }
-func (g *glog) errorln(v ...interface{}) {
+func (g *Glog) errorln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "31"))
 	g.Print(color.RedString("", v...))
 
 }
-func (g *glog) debugf(format string, v ...interface{}) {
+func (g *Glog) debugf(format string, v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "33"))
 	g.Printf(color.YellowString(format, v...))
 
 }
-func (g *glog) debugln(v ...interface{}) {
+func (g *Glog) debugln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "33"))
 	g.Print(color.YellowString("", v...))
 
 }
-func (g *glog) infof(format string, v ...interface{}) {
+func (g *Glog) infof(format string, v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "32"))
 	g.Printf(color.GreenString(format, v...))
 
 }
-func (g *glog) infoln(v ...interface{}) {
+func (g *Glog) infoln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "32"))
 	g.Print(color.GreenString("", v...))
 
