@@ -26,74 +26,74 @@ func InitGlog(wt io.Writer) {
 	Gl = Glog{log.New(wt, "", log.Llongfile)}
 }
 
-func (g *Glog) fatalf(format string, v ...interface{}) {
+func (g *Glog) Fatalf(format string, v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "35"))
 	g.Printf(color.MagentaString(format, v...))
 }
-func (g *Glog) fatalln(v ...interface{}) {
+func (g *Glog) Fatalln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "35"))
 	g.Print(color.MagentaString("", v...))
 
 }
-func (g *Glog) errorf(format string, v ...interface{}) {
+func (g *Glog) Errorf(format string, v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "31"))
 	g.Printf(color.RedString(format, v...))
 
 }
-func (g *Glog) errorln(v ...interface{}) {
+func (g *Glog) Errorln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "31"))
 	g.Print(color.RedString("", v...))
 
 }
-func (g *Glog) debugf(format string, v ...interface{}) {
+func (g *Glog) Debugf(format string, v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "33"))
 	g.Printf(color.YellowString(format, v...))
 
 }
-func (g *Glog) debugln(v ...interface{}) {
+func (g *Glog) Debugln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "33"))
 	g.Print(color.YellowString("", v...))
 
 }
-func (g *Glog) infof(format string, v ...interface{}) {
+func (g *Glog) Infof(format string, v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "32"))
 	g.Printf(color.GreenString(format, v...))
 
 }
-func (g *Glog) infoln(v ...interface{}) {
+func (g *Glog) Infoln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", "\x1b", "32"))
 	g.Print(color.GreenString("", v...))
 
 }
 
 func Fatalf(format string, v ...interface{}) {
-	Gl.fatalf(format, v...)
+	Gl.Fatalf(format, v...)
 }
 
 func Fatalln(v ...interface{}) {
-	Gl.fatalln(v...)
+	Gl.Fatalln(v...)
 }
 func Errorf(format string, v ...interface{}) {
-	Gl.errorf(format, v...)
+	Gl.Errorf(format, v...)
 
 }
 func Errorln(v ...interface{}) {
-	Gl.errorln(v...)
+	Gl.Errorln(v...)
 
 }
 func Debugf(format string, v ...interface{}) {
-	Gl.debugf(format, v...)
+	Gl.Debugf(format, v...)
 
 }
 func Debugln(v ...interface{}) {
-	Gl.debugln(v...)
+	Gl.Debugln(v...)
 
 }
 func Infof(format string, v ...interface{}) {
-	Gl.infof(format, v...)
+	Gl.Infof(format, v...)
 
 }
 func Infoln(v ...interface{}) {
-	Gl.infoln(v...)
+	Gl.Infoln(v...)
 
 }
