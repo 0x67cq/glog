@@ -1,29 +1,54 @@
-/******************************************
-        author: guanchengqi
-        email: guancq@tuya.com
-        date: 2019.12.07(Saturday)
-******************************************/
+/****************************************************
+**                                                 **
+**       Author: guanchengqi                       **
+**       Email:      guancq@tuya.com               **
+**       CreateTime: 2019.12.07(Saturday)          **
+**       UpdateTime: 2019.12.27(Friday)            **
+**                                                 **
+****************************************************/
+
 package glog
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 	"io"
 	"log"
 	"os"
+
+	"github.com/fatih/color"
 )
+
+// 对于 glog 的线程安全的思考。
+// 多个 glog 的竞争临界资源 只有写出的文件描述符
+// 对于竞争锁，log 库已经做了，可以着手于优化的点应该是在于怎么做到尽可能的无冲突写入
+// 也就是总是能拿到锁
 
 type Glog struct {
 	*log.Logger
 }
 
-var Gl Glog
+// Gl is a default glog struct
+var gl Glog
 
-func InitGlog(wt io.Writer) {
+// InitGlog func init package glog variable Gl, so can use like sqlmask.XX()
+func InitGlog(wt io.Writer, flag int) {
+	if 0 == flag {
+		flag = log.Llongfile
+	}
 	if wt == nil {
 		wt = os.Stdout
 	}
-	Gl = Glog{log.New(wt, "", log.Llongfile)}
+	gl = Glog{log.New(wt, "", flag)}
+}
+
+func NewGlog(wt io.Writer, flag int) Glog {
+	if 0 == flag {
+		flag = log.Llongfile
+	}
+	if wt == nil {
+		wt = os.Stdout
+	}
+	return Glog{log.New(wt, "", flag)}
 }
 
 func (g *Glog) Fatalf(format string, v ...interface{}) {
@@ -67,33 +92,33 @@ func (g *Glog) Infoln(v ...interface{}) {
 }
 
 func Fatalf(format string, v ...interface{}) {
-	Gl.Fatalf(format, v...)
+	gl.Fatalf(format, v...)
 }
 
 func Fatalln(v ...interface{}) {
-	Gl.Fatalln(v...)
+	gl.Fatalln(v...)
 }
 func Errorf(format string, v ...interface{}) {
-	Gl.Errorf(format, v...)
+	gl.Errorf(format, v...)
 
 }
 func Errorln(v ...interface{}) {
-	Gl.Errorln(v...)
+	gl.Errorln(v...)
 
 }
 func Debugf(format string, v ...interface{}) {
-	Gl.Debugf(format, v...)
+	gl.Debugf(format, v...)
 
 }
 func Debugln(v ...interface{}) {
-	Gl.Debugln(v...)
+	gl.Debugln(v...)
 
 }
 func Infof(format string, v ...interface{}) {
-	Gl.Infof(format, v...)
+	gl.Infof(format, v...)
 
 }
 func Infoln(v ...interface{}) {
-	Gl.Infoln(v...)
+	gl.Infoln(v...)
 
 }
