@@ -42,6 +42,10 @@ type Glog struct {
 // Gl is a default glog struct
 var gl Glog
 
+func GetGlog() Glog {
+	return gl
+}
+
 // InitGlog func init package glog variable Gl, so can use like sqlmask.XX()
 func InitGlog(wt io.Writer, flag int) {
 	if 0 == flag {
