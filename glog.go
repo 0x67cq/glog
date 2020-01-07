@@ -25,7 +25,7 @@ const (
 	yellowString  = "33"
 	greenString   = "32"
 
-	callDepth = 3
+	callDepth = 2
 )
 
 // 对于 glog 的线程安全的思考。
@@ -77,7 +77,7 @@ func (g *Glog) Fatalf(format string, v ...interface{}) {
 // Fatalln println fatal level log
 func (g *Glog) Fatalln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", escapeHeader, magentaString))
-	g.Output(callDepth, color.MagentaString("", v...))
+	g.Output(callDepth, color.MagentaString("%s", v...))
 }
 
 // Errorln println error level log
@@ -89,7 +89,7 @@ func (g *Glog) Errorf(format string, v ...interface{}) {
 // Errorln println error level log
 func (g *Glog) Errorln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", escapeHeader, redString))
-	g.Output(callDepth, color.RedString("", v...))
+	g.Output(callDepth, color.RedString("%s", v...))
 }
 
 // Debugf format print debug level log
@@ -101,7 +101,7 @@ func (g *Glog) Debugf(format string, v ...interface{}) {
 // Debugln println debug level log
 func (g *Glog) Debugln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", escapeHeader, yellowString))
-	g.Output(callDepth, color.YellowString("", v...))
+	g.Output(callDepth, color.YellowString("%s", v...))
 }
 
 // Infof format print info level log
@@ -113,7 +113,7 @@ func (g *Glog) Infof(format string, v ...interface{}) {
 // Infoln println info level log
 func (g *Glog) Infoln(v ...interface{}) {
 	g.SetPrefix(fmt.Sprintf("%s[%sm", escapeHeader, greenString))
-	g.Output(callDepth, color.GreenString("", v...))
+	g.Output(callDepth, color.GreenString("%s", v...))
 }
 
 // Fatalf format print fatal level log
