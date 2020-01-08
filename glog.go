@@ -14,6 +14,7 @@ import (
 	"io"
 	"log"
 	"os"
+    "sync"
 
 	"github.com/fatih/color"
 )
@@ -36,14 +37,15 @@ const (
 // Glog a embed log.Logger struct
 // type it for render log color
 type Glog struct {
+    mu sync.Mutex
 	*log.Logger
 }
 
 // Gl is a default glog struct
 var gl Glog
 
-func GetGlog() Glog {
-	return gl
+func GetGlog() *Glog {
+	return &gl
 }
 
 // InitGlog func init package glog variable Gl, so can use like sqlmask.XX()
@@ -54,64 +56,80 @@ func InitGlog(wt io.Writer, flag int) {
 	if wt == nil {
 		wt = os.Stdout
 	}
-	gl = Glog{log.New(wt, "", flag)}
+    gl = Glog{sync.Mutex{}, log.New(wt, "", flag)}
 }
 
 // NewGlog func new a glog logger struct
-func NewGlog(wt io.Writer, flag int) Glog {
+func NewGlog(wt io.Writer, flag int) *Glog {
 	if 0 == flag {
 		flag = log.Llongfile
 	}
 	if wt == nil {
 		wt = os.Stdout
 	}
-	return Glog{log.New(wt, "", flag)}
+	return &Glog{sync.Mutex{}, log.New(wt, "", flag)}
 }
 
 // Fatalf format print fatal level log
 func (g *Glog) Fatalf(format string, v ...interface{}) {
+    g.mu.Lock()
+    defer g.mu.Unlock()
 	g.SetPrefix(fmt.Sprintf("%s[%sm", escapeHeader, magentaString))
 	g.Output(callDepth, color.MagentaString(format, v...))
 }
 
 // Fatalln println fatal level log
 func (g *Glog) Fatalln(v ...interface{}) {
+    g.mu.Lock()
+    defer g.mu.Unlock()
 	g.SetPrefix(fmt.Sprintf("%s[%sm", escapeHeader, magentaString))
 	g.Output(callDepth, color.MagentaString("%s", v...))
 }
 
 // Errorln println error level log
 func (g *Glog) Errorf(format string, v ...interface{}) {
+    g.mu.Lock()
+    defer g.mu.Unlock()
 	g.SetPrefix(fmt.Sprintf("%s[%sm", escapeHeader, redString))
 	g.Output(callDepth, color.RedString(format, v...))
 }
 
 // Errorln println error level log
 func (g *Glog) Errorln(v ...interface{}) {
+    g.mu.Lock()
+    defer g.mu.Unlock()
 	g.SetPrefix(fmt.Sprintf("%s[%sm", escapeHeader, redString))
 	g.Output(callDepth, color.RedString("%s", v...))
 }
 
 // Debugf format print debug level log
 func (g *Glog) Debugf(format string, v ...interface{}) {
+    g.mu.Lock()
+    defer g.mu.Unlock()
 	g.SetPrefix(fmt.Sprintf("%s[%sm", escapeHeader, yellowString))
 	g.Output(callDepth, color.YellowString(format, v...))
 }
 
 // Debugln println debug level log
 func (g *Glog) Debugln(v ...interface{}) {
+    g.mu.Lock()
+    defer g.mu.Unlock()
 	g.SetPrefix(fmt.Sprintf("%s[%sm", escapeHeader, yellowString))
 	g.Output(callDepth, color.YellowString("%s", v...))
 }
 
 // Infof format print info level log
 func (g *Glog) Infof(format string, v ...interface{}) {
+    g.mu.Lock()
+    defer g.mu.Unlock()
 	g.SetPrefix(fmt.Sprintf("%s[%sm", escapeHeader, greenString))
 	g.Output(callDepth, color.GreenString(format, v...))
 }
 
 // Infoln println info level log
 func (g *Glog) Infoln(v ...interface{}) {
+    g.mu.Lock()
+    defer g.mu.Unlock()
 	g.SetPrefix(fmt.Sprintf("%s[%sm", escapeHeader, greenString))
 	g.Output(callDepth, color.GreenString("%s", v...))
 }
