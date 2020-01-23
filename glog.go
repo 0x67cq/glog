@@ -26,7 +26,7 @@ const (
 	yellowString  = "33"
 	greenString   = "32"
 
-	callDepth = 2
+	callDepth = 3
 )
 
 // 对于 glog 的线程安全的思考。
